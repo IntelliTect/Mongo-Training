@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using IntelliTect.Training.Mongo.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 // ReSharper disable InconsistentNaming
@@ -32,7 +35,8 @@ namespace IntelliTect.Training.Mongo
         {
             // Arrange
             var pipeline =
-                    Mongo.ExampleCollection.Aggregate( new AggregateOptions { AllowDiskUse = true } )  // Allow Mongod to use disk if memory is low
+                    Mongo.ExampleCollection.Aggregate( new AggregateOptions { AllowDiskUse = true } )
+                            // Allow Mongod to use disk if memory is low
                             .Match( restaurant => restaurant.cuisine == "Irish" && restaurant.borough == "Manhattan" )
                             .Group( restaurant => restaurant.address.zipcode,
                                     g =>
@@ -48,6 +52,35 @@ namespace IntelliTect.Training.Mongo
 
             // Assert
             Assert.AreEqual( 28, results.Count );
+        }
+
+        [TestMethod]
+        public async Task WhenAggregateAverageOnArray_ItReturnsExpectedResults()
+        {
+            // Arrange
+            IAggregateFluent<BsonDocument> pipeline =
+                    Mongo.ExampleCollection.Aggregate( new AggregateOptions { AllowDiskUse = true } )
+                            // Allow Mongod to use disk if memory is low
+                            .Match( restaurant => restaurant.cuisine == "Hamburgers" )
+                            .Unwind<Restaurant, Restaurant>( restaurant => restaurant.grades )
+                            .Group( new BsonDocument
+                                    {
+                                            { "_id", new BsonDocument( "Name", "$name" ) },
+                                            {
+                                                    "Score",
+                                                    new BsonDocument( "$avg", "$grades.score" )
+                                            }
+                                    } )
+                            .Sort( new BsonDocument( "Score", -1 ) );
+
+
+            // Act
+            List<BsonDocument> results = await pipeline.ToListAsync();
+
+            // Assert
+            Assert.AreEqual( 84, results.Count );
+
+            results.ForEach( x => Trace.WriteLine( x.ToJson() ) );
         }
     }
 }
