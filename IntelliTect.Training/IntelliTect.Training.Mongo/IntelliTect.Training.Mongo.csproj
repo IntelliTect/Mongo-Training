@@ -64,6 +64,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="1-ClientManagement\ClientTests.cs" />
+    <Compile Include="2-Querying\QueryTests.cs" />
+    <Compile Include="Entities\CuisineFindExplanation.cs" />
+    <Compile Include="Entities\CuisineFindExplanation2.cs" />
     <Compile Include="Entities\Restaurant.cs" />
     <Compile Include="Mongo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

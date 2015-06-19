@@ -11,11 +11,15 @@ namespace IntelliTect.Training.Mongo
         static Mongo()
         {
             BsonClassMap.RegisterClassMap<Restaurant>();
+            BsonClassMap.RegisterClassMap<CuisineFindExplanation>();
 
             Client = new MongoClient( ConfigurationManager.ConnectionStrings["Mongo"].ConnectionString );
             TrainingDatabase = Client.GetDatabase( "mongo-training" );
             RawCollection = TrainingDatabase.GetCollection<BsonDocument>( "example" );
+            ExampleCollection = TrainingDatabase.GetCollection<Restaurant>( "example" );
         }
+
+        public static IMongoCollection<Restaurant> ExampleCollection { get; set; }
 
         public static IMongoClient Client { get; private set; }
 
