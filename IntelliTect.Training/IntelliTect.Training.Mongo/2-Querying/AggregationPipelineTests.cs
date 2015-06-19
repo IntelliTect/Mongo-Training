@@ -31,7 +31,7 @@ namespace IntelliTect.Training.Mongo
         }
 
         [TestMethod]
-        public async Task WhenAggregateWithAverage_ItReturnsExpectedResults()
+        public async Task WhenAggregateWithCount_ItReturnsExpectedResults()
         {
             // Arrange
             var pipeline =
