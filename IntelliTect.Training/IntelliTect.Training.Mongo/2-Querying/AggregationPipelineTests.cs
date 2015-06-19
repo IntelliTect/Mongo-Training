@@ -82,5 +82,31 @@ namespace IntelliTect.Training.Mongo
 
             results.ForEach( x => Trace.WriteLine( x.ToJson() ) );
         }
+
+        [TestMethod]
+        public async Task WhenMultipleGroupingsWithAnonymousTypes_ItProjectsAsExpected()
+        {
+            // Arrange
+            var pipeline = Mongo.ExampleCollection.Aggregate()
+                    .Group( restaurant => new { Borough = restaurant.borough, Zip = restaurant.address.zipcode },
+                            g =>
+                                    new
+                                    {
+                                            BoroughAndZip = g.Key,
+                                            NumberOfGrades = g.Sum( restaurant => restaurant.grades.Length )
+                                    } )
+                    .Group( x => x.BoroughAndZip.Borough,
+                            g => new { Borough = g.Key, AverageNumberOfGradesPerZip = g.Average( x => x.NumberOfGrades ) } )
+                    .SortBy( x => x.Borough );
+
+
+            // Act
+            var results = await pipeline.ToListAsync();
+
+            // Assert
+            Assert.AreEqual(6, results.Count);
+            Assert.AreEqual("Bronx", results.First().Borough);
+            results.ForEach(x => Trace.WriteLine(x.ToJson()));
+        }
     }
 }
