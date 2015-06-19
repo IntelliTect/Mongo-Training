@@ -20,11 +20,8 @@ namespace IntelliTect.Training.Mongo
         }
 
         public static IMongoCollection<Restaurant> ExampleCollection { get; set; }
-
         public static IMongoClient Client { get; private set; }
-
         public static IMongoDatabase TrainingDatabase { get; private set; }
-
         public static IMongoCollection<BsonDocument> RawCollection { get; private set; }
     }
 }

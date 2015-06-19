@@ -14,8 +14,8 @@ namespace IntelliTect.Training.Mongo
         [TestMethod]
         public void WhenClientIsRequestedTwice_ItGivesTheSameClient()
         {
-            var result = Mongo.Client;
-            var result2 = Mongo.Client;
+            IMongoClient result = Mongo.Client;
+            IMongoClient result2 = Mongo.Client;
 
             Assert.AreSame( result, result2 );
         }
@@ -23,9 +23,9 @@ namespace IntelliTect.Training.Mongo
         [TestMethod]
         public void WhenDatabaseIsRequestedTwice_ItGivesDifferentInstance()
         {
-            var db = Mongo.Client.GetDatabase( "mongo-training" );
-            var db2 = Mongo.Client.GetDatabase( "mongo-training" );
-            var staticdb = Mongo.TrainingDatabase;
+            IMongoDatabase db = Mongo.Client.GetDatabase( "mongo-training" );
+            IMongoDatabase db2 = Mongo.Client.GetDatabase( "mongo-training" );
+            IMongoDatabase staticdb = Mongo.TrainingDatabase;
 
             Assert.AreNotSame( db, db2 );
             Assert.AreNotSame( db, staticdb );
@@ -34,13 +34,14 @@ namespace IntelliTect.Training.Mongo
         [TestMethod]
         public async Task WhenGetCollectionWithDifferentTypes_ItGivesDifferentInstances()
         {
-            var bsonCollection = Mongo.TrainingDatabase.GetCollection<BsonDocument>( "example" );
-            var typedCollection = Mongo.TrainingDatabase.GetCollection<Restaurant>( "example" );
+            IMongoCollection<BsonDocument> bsonCollection =
+                    Mongo.TrainingDatabase.GetCollection<BsonDocument>( "example" );
+            IMongoCollection<Restaurant> typedCollection = Mongo.TrainingDatabase.GetCollection<Restaurant>( "example" );
 
             Assert.AreNotSame( bsonCollection, typedCollection );
 
-            var count1 = await bsonCollection.CountAsync( new BsonDocument() );
-            var count2 = await typedCollection.CountAsync( new BsonDocument() );
+            long count1 = await bsonCollection.CountAsync( new BsonDocument() );
+            long count2 = await typedCollection.CountAsync( new BsonDocument() );
 
             Assert.AreEqual( count1, count2 );
         }
