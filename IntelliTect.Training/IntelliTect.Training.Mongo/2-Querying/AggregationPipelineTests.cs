@@ -62,7 +62,7 @@ namespace IntelliTect.Training.Mongo
                     Mongo.ExampleCollection.Aggregate( new AggregateOptions { AllowDiskUse = true } )
                             // Allow Mongod to use disk if memory is low
                             .Match( restaurant => restaurant.cuisine == "Hamburgers" )
-                            .Unwind<Restaurant, Restaurant>( restaurant => restaurant.grades )
+                            .Unwind( restaurant => restaurant.grades )
                             .Group( new BsonDocument
                                     {
                                             { "_id", new BsonDocument( "Name", "$name" ) },
