@@ -67,6 +67,8 @@
     <Compile Include="2-Querying\QueryTests.cs" />
     <Compile Include="2-Querying\FilterTests.cs" />
     <Compile Include="2-Querying\AggregationPipelineTests.cs" />
+    <Compile Include="3-Insert-Update-Delete\InsertTests.cs" />
+    <Compile Include="3-Insert-Update-Delete\UpdateTests.cs" />
     <Compile Include="Entities\CuisineFindExplanation.cs" />
     <Compile Include="Entities\CuisineFindExplanation2.cs" />
     <Compile Include="Entities\Restaurant.cs" />
