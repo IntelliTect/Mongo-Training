@@ -47,6 +47,10 @@
       <HintPath>..\packages\MongoDB.Driver.Core.2.0.1\lib\net45\MongoDB.Driver.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.0.1.27, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.0.1\lib\net45\MongoDB.Driver.Legacy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
   </ItemGroup>
@@ -69,10 +73,12 @@
     <Compile Include="2-Querying\AggregationPipelineTests.cs" />
     <Compile Include="3-Insert-Update-Delete\InsertTests.cs" />
     <Compile Include="3-Insert-Update-Delete\UpdateTests.cs" />
+    <Compile Include="4-GridFS\GridFsTests.cs" />
     <Compile Include="Entities\CuisineFindExplanation.cs" />
     <Compile Include="Entities\CuisineFindExplanation2.cs" />
     <Compile Include="Entities\Restaurant.cs" />
     <Compile Include="Mongo.cs" />
+    <Compile Include="MongoLegacy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
