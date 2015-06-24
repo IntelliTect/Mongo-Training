@@ -32,7 +32,7 @@ namespace IntelliTect.Training.Mongo
             UpdateDefinition<Restaurant> update = Builders<Restaurant>.Update.Set( x => x.name, "Bully'S Deli" );
             UpdateResult cleanup = await Mongo.ExampleCollection.UpdateOneAsync( filter, update );
             Assert.AreEqual( 1, cleanup.ModifiedCount );
-            Assert.AreEqual( 1, cleanup.ModifiedCount );
+            Assert.AreEqual( 1, cleanup.MatchedCount );
         }
 
         [TestMethod]
