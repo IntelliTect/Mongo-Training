@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using IntelliTect.Training.Mongo.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver;
@@ -15,7 +14,7 @@ namespace IntelliTect.Training.Mongo
         public async Task WhenInsertingAMappedType_ItWorks()
         {
             // Arrange
-            var myRestaurant = Mongo.GetDumpsterPalace();
+            Restaurant myRestaurant = Mongo.GetDumpsterPalace();
 
             // Act
             await Mongo.ExampleCollection.InsertOneAsync( myRestaurant );

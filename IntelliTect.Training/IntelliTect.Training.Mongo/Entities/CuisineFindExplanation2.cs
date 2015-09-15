@@ -1,8 +1,11 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
+// ReSharper disable InconsistentNaming
+
+// ReSharper disable once CheckNamespace
+
 namespace IntelliTect.Training.Mongo.Entities.Two
 {
-
     public class CuisineFindExplanation2
     {
         public Queryplanner queryPlanner { get; set; }
@@ -13,8 +16,10 @@ namespace IntelliTect.Training.Mongo.Entities.Two
     public class Queryplanner
     {
         public int plannerVersion { get; set; }
-        [BsonElement("namespace")]
+
+        [BsonElement( "namespace" )]
         public string _namespace { get; set; }
+
         public bool indexFilterSet { get; set; }
         public Parsedquery parsedQuery { get; set; }
         public Winningplan winningPlan { get; set; }
@@ -28,7 +33,7 @@ namespace IntelliTect.Training.Mongo.Entities.Two
 
     public class Cuisine
     {
-        [BsonElement("$eq")]
+        [BsonElement( "$eq" )]
         public string eq { get; set; }
     }
 
@@ -129,5 +134,4 @@ namespace IntelliTect.Training.Mongo.Entities.Two
         public string version { get; set; }
         public string gitVersion { get; set; }
     }
-
 }

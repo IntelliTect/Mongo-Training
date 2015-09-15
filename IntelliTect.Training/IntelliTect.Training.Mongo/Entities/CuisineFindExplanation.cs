@@ -1,5 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
+// ReSharper disable InconsistentNaming
+
 namespace IntelliTect.Training.Mongo.Entities
 {
     public class CuisineFindExplanation
